@@ -26,10 +26,10 @@ spec:
             name: errbotconfig
         - name: rclone-config
           secret:
-            name: rcloneconfig
+            secretName: rcloneconfig
         - name: deploy-key-ssh
           secret:
-            name: deploykeyssh
+            secretName: deploykeyssh
       containers:
       - name:  bot-helper
         image:  tritran14/bot-helper:COMMIT_ID
@@ -49,9 +49,11 @@ spec:
             subPath: config.py
           - name: rclone-config
             mountPath: /data/rclone.conf
+            readOnly: true
             subPath: rclone.conf
           - name: deploy-key-ssh
             mountPath: /data/id_rsa_deploy
+            readOnly: true
             subPath: id_rsa_deploy
       imagePullSecrets:
       - name: private-reg-cred
