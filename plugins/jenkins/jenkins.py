@@ -5,8 +5,10 @@ from sys import exit
 import requests, json, urllib3, os, re
 from tabulate import tabulate
 
-#from dotenv import load_dotenv
+from dotenv import load_dotenv
 from cloudflare import update_dns_recordA
+from jenkinsapi.jenkins import Jenkins
+import subprocess
 #load_dotenv('.env')
 
 JENKINS_API_TOKEN = os.environ.get('JENKINS_API_TOKEN')
@@ -213,19 +215,36 @@ class JENKINS(BotPlugin):
         if response.status_code == 201:
             text = "Send trigger build to jenkins success\nGenarating output - please wait ..."
             self._bot.send_simple_reply(msg, text, threaded=True)
-            time.sleep(60)
-            console_output = requests.get(output_url, auth=('admin', '{}'.format(JENKINS_API_TOKEN)))
+
+            while True:
+                time.sleep(60)
+                console_output = requests.get(output_url, auth=('admin', '{}'.format(JENKINS_API_TOKEN)))
+                output_text = console_output.text[-8:-1]
+                if output_text == "SUCCESS":
+                    break
             output_text = console_output.text
+            
             if re.search("SUCCESS", output_text):
-                self._bot.send_simple_reply(msg, output_text, threaded=True)
+                text = "Create Vhost completed!"
+                self._bot.send_simple_reply(msg, text, threaded=True)
             else:
                 text = "Build fail roi @tritran14 oi!!!"
                 self._bot.send_simple_reply(msg, text, threaded=True)
-            
+                return       
 
+            # time.sleep(60)
+            # console_output = requests.get(output_url, auth=('admin', '{}'.format(JENKINS_API_TOKEN)))
+            # output_text = console_output.text
+            # if re.search("SUCCESS", output_text):
+            #     self._bot.send_simple_reply(msg, output_text, threaded=True)
+            # else:
+            #     text = "Build fail roi @tritran14 oi!!!"
+            #     self._bot.send_simple_reply(msg, text, threaded=True)
+            
         else:
             text = "Send trigger build to jenkins fail\n @tritran14 oi vao check ne` {}!!!".format(response.status_code)
             self._bot.send_simple_reply(msg, text, threaded=True)
+            self._bot.send_simple_reply(msg, output_text, threaded=True)
 
     @botcmd(split_args_with=None)
     def jenkins_backupweb(self, msg, args):
@@ -528,6 +547,30 @@ class JENKINS(BotPlugin):
             # console_output = requests.get(output_url, auth=('admin', '{}'.format(JENKINS_API_TOKEN)))
             # output_text = console_output.text
             self._bot.send_simple_reply(msg, output_text, threaded=True)
+
+    @botcmd(split_args_with=None)
+    def jenkins_find_domain(self, msg, args):
+        """_syntax: /jenkins find domain <root_ip>"""
+        if len(args) < 1 or len(args) > 1:
+            text = "`invalid syntax, _syntax: /jenkins find domain <root_ip>`"
+            self._bot.send_simple_reply(msg, text, threaded=True)
+            return
+
+        text = "Waiting search all jobs in Jenkins..."
+        self._bot.send_simple_reply(msg, text, threaded=True)
+
+        root_ip = args[0]
+        plugin_path = os.path.dirname(os.path.realpath(__file__))
+        other_file_path = os.path.join(plugin_path, "jenkins_find_domain_from_ip.py")
+        result = subprocess.run(['/usr/bin/python3', other_file_path, root_ip], capture_output=True, text=True)
+
+        while True:
+            if result.stdout:
+                text = result.stdout
+                break
+            time.sleep(20)
+        self._bot.send_simple_reply(msg, text, threaded=True)
+
         
 
 

@@ -35,7 +35,7 @@ class ErrcronDemo(CrontabMixin, BotPlugin):
         user = self.build_identifier(identity)
         plugin_path = os.path.dirname(os.path.realpath(__file__))
         other_file_path = os.path.join(plugin_path, "checkippoint.py")
-        output = subprocess.check_output(["/opt/bot-helper/venv/bin/python3.8", other_file_path]).decode("utf-8")
+        output = subprocess.check_output(["/usr/bin/python3", other_file_path]).decode("utf-8")
 
         # send output as message
         return self.send(user, output)

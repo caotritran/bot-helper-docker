@@ -1,0 +1,10 @@
+[Core]
+Name = rclone
+Module = rclone
+DependsOn = Help
+
+[Documentation]
+Description = helper to interate with rclone
+
+[Python]
+Version = 2+
