@@ -8,3 +8,4 @@ crontab
 pytz
 paramiko
 errcron
+jenkinsapi
