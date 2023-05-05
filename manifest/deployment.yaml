@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  bot-helper
+  namespace: default
+  labels:
+    app:  bot-helper
+spec:
+  selector:
+    matchLabels:
+      app: bot-helper
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app:  bot-helper
+    spec:
+      volumes:
+        - name: bot-helper-config
+          configMap:
+            name: errbotconfig
+      containers:
+      - name:  bot-helper
+        image:  tritran14/bot-helper:COMMIT_ID
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+          limits:
+            cpu: 100m
+            memory: 100Mi
+        envFrom:
+        - secretRef:
+            name: bot-helper-creds
+        volumeMounts:
+          - name: bot-helper-config
+            mountPath: /data/config.py
+            subPath: config.py
+      imagePullSecrets:
+      - name: private-reg-cred
+        
