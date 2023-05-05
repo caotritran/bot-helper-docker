@@ -1,0 +1,10 @@
+errbot==6.1.8
+requests
+tabulate
+python-dotenv
+python-telegram-bot==13.13
+six
+crontab
+pytz
+paramiko
+errcron

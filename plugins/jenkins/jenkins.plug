@@ -1,0 +1,10 @@
+[Core]
+Name = jenkins
+Module = jenkins
+DependsOn = Help
+
+[Documentation]
+Description = helper to interate with jenkins
+
+[Python]
+Version = 2+

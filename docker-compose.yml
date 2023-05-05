@@ -1,0 +1,8 @@
+version: '3'
+services:
+  bot-helper:
+    image: bot-helper:latest
+    # environment:
+    #   ENV_VARIABLE_NAME: ENV_VARIABLE_VALUE
+    volumes:
+      - ./env:/data/.env

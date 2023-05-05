@@ -1,0 +1,10 @@
+[Core]
+Name = server
+Module = server
+DependsOn = Help
+
+[Documentation]
+Description = helper to interate with server
+
+[Python]
+Version = 2+

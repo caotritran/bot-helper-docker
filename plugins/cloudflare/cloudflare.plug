@@ -1,0 +1,10 @@
+[Core]
+Name = cloudflare
+Module = cloudflare
+DependsOn = Help
+
+[Documentation]
+Description = helper to util with CF API
+
+[Python]
+Version = 2+

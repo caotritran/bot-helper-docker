@@ -1,0 +1,11 @@
+[Core]
+name = cronremind
+module = cronremind
+
+[Documentation]
+description = Crontab implementation for Errbot
+
+[Python]
+version = 2+
+
+[Errbot]
