@@ -20,4 +20,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: tritran14/bot-helper
           tags: ${{ env.GITHUB_SHA }}
-          dockerfile: ./Dockerfile
+          dockerfile: .
+          push: true
