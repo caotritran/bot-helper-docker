@@ -37,7 +37,7 @@ spec:
           exec:
             command:
             - cat
-            - /tmp/requirements.txt
+            - /tmp/errbot-requirements.txt
           initialDelaySeconds: 5
           periodSeconds: 5
         resources:
