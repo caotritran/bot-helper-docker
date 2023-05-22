@@ -33,15 +33,11 @@ spec:
       containers:
       - name:  bot-helper
         image:  tritran14/bot-helper:COMMIT_ID
-        args:
-        - /bin/sh
-        - -c
-        - touch /tmp/healthy
         livenessProbe:
           exec:
             command:
             - cat
-            - /tmp/healthy
+            - /tmp/requirements.txt
           initialDelaySeconds: 5
           periodSeconds: 5
         resources:
