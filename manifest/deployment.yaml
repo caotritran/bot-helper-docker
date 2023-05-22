@@ -42,8 +42,8 @@ spec:
             command:
             - cat
             - /tmp/healthy
-        initialDelaySeconds: 5
-        periodSeconds: 5
+          initialDelaySeconds: 5
+          periodSeconds: 5
         resources:
           requests:
             cpu: 100m
