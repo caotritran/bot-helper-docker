@@ -42,7 +42,7 @@ spec:
             command:
             - cat
             - /tmp/healthy
-          initialDelaySeconds: 5
+          initialDelaySeconds: 25
           periodSeconds: 5
         resources:
           requests:
