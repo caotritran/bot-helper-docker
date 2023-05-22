@@ -36,13 +36,13 @@ spec:
         args:
         - /bin/sh
         - -c
-        - touch /tmp/healthy; sleep 30; rm -f /tmp/healthy; sleep 600
+        - touch /tmp/healthy
         livenessProbe:
           exec:
             command:
             - cat
             - /tmp/healthy
-          initialDelaySeconds: 25
+          initialDelaySeconds: 5
           periodSeconds: 5
         resources:
           requests:
