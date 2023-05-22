@@ -9,16 +9,19 @@ if [ ${#last} > 12 ]; then
 fi
 
 custom_domain=$last
+found=false
+
 
 for i in `rclone listremotes --config /data/rclone.conf`; do
     rclone ls $i --config /data/rclone.conf | grep $custom_domain > /dev/null 2>&1
-    if [[ $? -eq 0 ]]; then
-        rclone ls $i --config /data/rclone.conf | grep $custom_domain
-        if [[ $? -eq 0 ]]; then
-            echo "files backup exist at remote **$i**"
-            echo "==================================="
-        else
-            echo "NOT FOUND OR SOMETHING WENT WRONG, LET CHECK MANUAL ON ONEDRIVE!!!"
-        fi
+    if rclone ls $i --config /opt/rclone.conf | grep -q $custom_domain; then
+        rclone ls $i --config /opt/rclone.conf | grep $custom_domain
+        echo "Files backup exists at remote **$i**"
+        echo "==================================="
+        found=true
     fi
 done
+
+if [ "$found" = false ]; then
+    echo "Not found: Files backup does not exist for domain $custom_domain"
+fi
