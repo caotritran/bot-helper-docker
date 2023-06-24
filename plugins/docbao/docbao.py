@@ -33,7 +33,7 @@ class DOCBAO(BotPlugin):
             return
 
         table = []
-        headers = ["Title", "Link"]
+        header = ["Title", "Link"]
 
         url = "https://newsdata.io/api/1/news?country=vi&category=top&apikey={}".format(DOCBAO_APIKEY)
 
@@ -53,7 +53,7 @@ class DOCBAO(BotPlugin):
                             link,
                         ])
 
-        result = tabulate(table, headers=headers, tablefmt="github")
+        result = tabulate(table, headers=header, tablefmt="orgtbl")
 
         self._bot.send_simple_reply(msg, result, threaded=True)
     
