@@ -1,0 +1,10 @@
+[Core]
+Name = docbao
+Module = docbao
+DependsOn = Help
+
+[Documentation]
+Description = helper to interate with docbao
+
+[Python]
+Version = 2+
