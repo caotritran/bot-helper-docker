@@ -1,0 +1,10 @@
+[Core]
+Name = price
+Module = price
+DependsOn = Help
+
+[Documentation]
+Description = helper to interate with price
+
+[Python]
+Version = 2+
