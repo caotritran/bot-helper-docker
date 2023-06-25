@@ -27,6 +27,7 @@ class PRICE(BotPlugin):
             self._bot.send_simple_reply(msg, text, threaded=True)
             return
         symbol = args[0]
+        symbol = symbol.upper()
         if symbol.isnumeric():
             text = "`Must be character, ex: BTCUSDT...`"
             self._bot.send_simple_reply(msg, text, threaded=True)
